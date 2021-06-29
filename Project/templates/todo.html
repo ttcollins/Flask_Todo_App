@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Todo App</h3>
+    <div class="box">
+        <form action="{{ url_for('main.add') }}" method="POST" class="box">
+            <div class="field">
+                <label for="title" class="label" style="text-align: left;">Todo Titile</label>
+                <input type="text" class="input" name="title" placeholder="Enter Todo...">
+                <br>
+                <button type="submit" class="button is-primary" style="margin-top: 5px;">Add</button>
+            </div>
+        </form>
+
+        {% for todo in todo_list %}
+        <div class="box">
+            <p><h2>{{todo.id}} | {{todo.title}}</h2></p>
+
+            {% if todo.complete == False %}
+                <span class="tag is-light is-medium has-text-danger">Not Completed</span>
+            {% else %}
+                <span class="tag is-light is-medium has-text-success">Complete</span>
+            {% endif %}
+
+            <a href="/update/{{todo.id}}" class="button is-success">Update</a>
+            <a href="/delete/{{todo.id}}" class="button is-danger">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
